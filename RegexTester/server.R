@@ -9,11 +9,9 @@
 
 library(shiny)
 
-# Define server logic required to draw a histogram
+# Define server
 function(input, output, session) {
   
-  #observeEvent(input$goButton, {
-
     output$textBlob <- renderUI({
       
         #input$goButton
@@ -32,6 +30,10 @@ function(input, output, session) {
 
     })
 
- # })
+    output$Hist <- renderPlot({
+      token_list <- unlist(strsplit(input$samptext, ' '))
+      tokens_lengths <- sapply(token_list, nchar)
+      hist(tokens_lengths, breaks = input$num_breaks)
+    }) 
     
 }
